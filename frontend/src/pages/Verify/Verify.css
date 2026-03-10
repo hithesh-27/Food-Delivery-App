@@ -1,0 +1,17 @@
+.verify-page {
+    padding: 60px 20px;
+    text-align: center;
+}
+.verify-page h1 {
+    margin-bottom: 20px;
+}
+.verify-page p {
+    margin: 10px 0;
+}
+.verify-page a {
+    display: inline-block;
+    margin-top: 20px;
+    color: tomato;
+    text-decoration: none;
+    font-weight: 600;
+}
