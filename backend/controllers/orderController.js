@@ -8,9 +8,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 //placing user order for frontend
 const placeOrder = async (req,res) =>{
 
-    const frontend_url = process.env.FRONTEND_URL || "http://localhost:5173";
+    const frontend_url = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
+    // App uses HashRouter on static hosting — Stripe must redirect into the hash.
+    const verifyOk = `${frontend_url}/#/verify?success=true&orderId=`;
+    const verifyCancel = `${frontend_url}/#/verify?success=false&orderId=`;
 
-   
     try {
         const newOrder = new orderModel({
             userId: req.body.userId,
@@ -48,8 +50,8 @@ const placeOrder = async (req,res) =>{
             const session = await stripe.checkout.sessions.create({
                 line_items:line_items,
                 mode:'payment',
-                success_url:`${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-                cancel_url:`${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
+                success_url: `${verifyOk}${newOrder._id}`,
+                cancel_url: `${verifyCancel}${newOrder._id}`,
             })
             session_url = session.url;
         } catch(stripError) {
@@ -57,7 +59,7 @@ const placeOrder = async (req,res) =>{
             // the frontend to navigate somewhere so the demo flow works.
             console.error("stripe session create failed", stripError);
             // fall back to a local verification page as if payment succeeded
-            session_url = `${frontend_url}/verify?success=true&orderId=${newOrder._id}`;
+            session_url = `${verifyOk}${newOrder._id}`;
         }
 
         res.json({success:true,session_url})
