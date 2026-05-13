@@ -44,6 +44,19 @@ This repository includes a Streamlit wrapper for the existing backend API.
      - `MONGO_URI=mongodb+srv://hitheshgowdaar_db_user:yB7IbGmByVhakEis@cluster0.uxiwnnj.mongodb.net/food-del`
 4. Get the deployed URL (e.g. `https://food-del-backend.onrender.com`)
 
+### Frontend Deployment
+
+1. Create a Render Static Site.
+2. Connect the GitHub repo `hithesh-27/Food-Delivery-App`.
+3. Set the root directory to `frontend`.
+4. Build command: `npm install && npm run build`
+5. Publish directory: `dist`
+6. Add environment variable:
+   - `VITE_BACKEND_URL=https://food-del-backend-2-tho7.onrender.com`
+7. Deploy.
+
+Once your React frontend is live, set the backend `FRONTEND_URL` environment variable to the React frontend URL.
+
 ### Streamlit Deployment
 
 1. Go to https://share.streamlit.io
