@@ -10,7 +10,7 @@ except Exception:
     BACKEND_URL = None
 
 if not BACKEND_URL:
-    BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:4000")
+    BACKEND_URL = os.getenv("BACKEND_URL", "https://food-del-backend-2-tho7.onrender.com")
 
 API_PREFIX = urljoin(BACKEND_URL, "/api/")
 
