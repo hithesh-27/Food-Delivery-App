@@ -1,3 +1,6 @@
 .env
 __pycache__/
 .vscode/
+
+# Single-file React bundle for Streamlit (large; regenerate with npm run build:streamlit)
+streamlit_embed/index.html

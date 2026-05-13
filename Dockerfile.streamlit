@@ -1,0 +1,22 @@
+# Streamlit host + single-file Vite/React bundle (see frontend/vite.config.streamlit.js).
+# Build API URL is baked into the client; override at build time, e.g.:
+#   docker build -f Dockerfile.streamlit --build-arg VITE_BACKEND_URL=https://api.example.com .
+
+FROM node:22-bookworm-slim AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+ARG VITE_BACKEND_URL=https://food-del-backend-2-tho7.onrender.com
+ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
+RUN npm run build:streamlit
+
+FROM python:3.12-slim-bookworm
+WORKDIR /app
+ENV PYTHONUNBUFFERED=1
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY streamlit_app.py streamlit_native_ui.py ./
+COPY --from=frontend-build /app/streamlit_embed ./streamlit_embed
+EXPOSE 8501
+CMD ["sh", "-c", "exec streamlit run streamlit_app.py --server.port=${PORT:-8501} --server.address=0.0.0.0 --server.headless=true --browser.gatherUsageStats=false"]

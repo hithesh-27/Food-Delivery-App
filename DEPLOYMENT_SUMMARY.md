@@ -4,10 +4,9 @@
 
 ### 🚀 Live URLs
 
-**Frontend (React + Vite):**
-```
-https://food-del-frontend-kq6b.onrender.com/
-```
+Render assigns each service a unique `*.onrender.com` hostname. If an old link returns **404**, the service was likely deleted, renamed, or never deployed—open the [Render Dashboard](https://dashboard.render.com/) and copy the **current** URL from the service page.
+
+**Frontend (React + Vite):** use the URL shown for your static site (or static `runtime: web` service) after deploy.
 
 **Backend (Node.js/Express API):**
 ```
@@ -31,7 +30,7 @@ https://food-del-backend-2-tho7.onrender.com/
 - **Service ID:** srv-d826o66gvqtc7...
 - **Runtime:** Node.js
 - **Environment Variables:**
-  - `FRONTEND_URL: https://food-del-frontend-kq6b.onrender.com`
+  - `FRONTEND_URL: <your live frontend URL from Render>`
   - `STRIPE_SECRET_KEY: [configured]`
   - `JWT_SECRET: [configured]`
   - `MONGO_URI: [configured]`
@@ -99,13 +98,13 @@ Error: Identifier 'url' has already been declared
 ## 🚀 Next Steps (Optional)
 
 1. **Test Complete Flow:**
-   - Visit https://food-del-frontend-kq6b.onrender.com/
+   - Visit your current Render frontend URL (from the dashboard).
    - Create account / Sign in
    - Add items to cart
    - Proceed to checkout
    - Complete Stripe payment
 
-2. **Admin Panel:** https://food-del-admin-kq6b.onrender.com/ (if deployed)
+2. **Admin Panel:** deploy separately and use the URL shown in Render (if deployed).
 
 3. **Monitoring:**
    - Check Render dashboard for logs
@@ -135,5 +134,6 @@ Error: Identifier 'url' has already been declared
 
 Your food delivery application is now fully deployed and accessible to users worldwide on Render's global CDN.
 
-**Frontend URL:** https://food-del-frontend-kq6b.onrender.com/
+**Frontend URL:** use the live URL from your Render static site service.
+
 **Backend API:** https://food-del-backend-2-tho7.onrender.com/

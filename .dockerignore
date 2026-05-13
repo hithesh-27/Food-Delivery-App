@@ -1,0 +1,8 @@
+.git
+**/__pycache__
+**/.venv
+**/node_modules
+streamlit_embed/index.html
+admin
+backend
+*.md
