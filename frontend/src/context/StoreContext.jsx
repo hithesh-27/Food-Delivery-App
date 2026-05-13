@@ -6,10 +6,9 @@ export const StoreContext = createContext(null)
 const StoreContextProvider = (props) => {
 
     const [cartItems, setCartItems] = useState({});
-    const url = "http://localhost:4000"
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([])
-    const url = import.meta.env.VITE_BACKEND_URL || "https://food-del-backend-2-tho7.onrender.com"
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://food-del-backend-2-tho7.onrender.com"
 
     const addToCart = async (itemId) => {
         setCartItems((prev) => {
@@ -19,7 +18,7 @@ const StoreContextProvider = (props) => {
             return updated;
         });
         if (token) {
-            await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } })
+            await axios.post(backendUrl + "/api/cart/add", { itemId }, { headers: { token } })
         }
     }
 
@@ -30,7 +29,7 @@ const StoreContextProvider = (props) => {
             return updated;
         });
         if (token) {
-            await axios.post(url + "/api/cart/remove", { itemId }, { headers: { token } })
+            await axios.post(backendUrl + "/api/cart/remove", { itemId }, { headers: { token } })
         }
     }
 
@@ -48,7 +47,7 @@ const StoreContextProvider = (props) => {
 
     const fetchFoodList = async () => {
         try {
-            const response = await axios.get(url + "/api/food/list");
+            const response = await axios.get(backendUrl + "/api/food/list");
             if (response.data?.success && Array.isArray(response.data.data)) {
                 setFoodList(response.data.data);
             } else {
@@ -61,7 +60,7 @@ const StoreContextProvider = (props) => {
     }
 
     const loadCartData = async (token) => {
-        const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
+        const response = await axios.post(backendUrl + "/api/cart/get", {}, { headers: { token } });
         setCartItems(response.data.cartData);
 
     }
@@ -105,7 +104,7 @@ const StoreContextProvider = (props) => {
         addToCart,
         removeFromCart,
         getTotalCartAmount,
-        url,
+        url: backendUrl,
         token,
         setToken
 
