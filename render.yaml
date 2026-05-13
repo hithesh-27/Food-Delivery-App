@@ -1,13 +1,10 @@
 services:
-  - type: static_site
+  - type: web_service
     name: food-del-frontend
-    env: static
+    env: node
     root: frontend
     buildCommand: npm install && npm run build
-    publishPath: dist
-    routes:
-      - path: /*
-        destination: /index.html
+    startCommand: node server.js
     envVars:
       - key: VITE_BACKEND_URL
         value: https://food-del-backend-2-tho7.onrender.com
