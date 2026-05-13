@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { food_list as fallbackFoodList } from "../assets/assets";
 export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
@@ -8,6 +9,7 @@ const StoreContextProvider = (props) => {
     const url = "http://localhost:4000"
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([])
+    const url = import.meta.env.VITE_BACKEND_URL || "https://food-del-backend-2-tho7.onrender.com"
 
     const addToCart = async (itemId) => {
         setCartItems((prev) => {
@@ -45,8 +47,17 @@ const StoreContextProvider = (props) => {
     }
 
     const fetchFoodList = async () => {
-        const response = await axios.get(url + "/api/food/list");
-        setFoodList(response.data.data)
+        try {
+            const response = await axios.get(url + "/api/food/list");
+            if (response.data?.success && Array.isArray(response.data.data)) {
+                setFoodList(response.data.data);
+            } else {
+                setFoodList(fallbackFoodList);
+            }
+        } catch (error) {
+            console.error("Unable to load food list, using fallback data:", error);
+            setFoodList(fallbackFoodList);
+        }
     }
 
     const loadCartData = async (token) => {
