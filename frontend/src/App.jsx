@@ -5,6 +5,7 @@ import LoginPopup from './components/LoginPopup/LoginPopup'
 import { Route, Routes } from 'react-router-dom'
 import Cart from './pages/Cart/Cart'
 import Home from './pages/Home/Home'
+import Planner from './pages/Planner/Planner'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Verify from './pages/Verify/Verify'
 import Orders from './pages/Orders/Orders'
@@ -19,6 +20,7 @@ const App = () => {
       <Navbar setShowLogin={setShowLogin}/>
       <Routes>
         <Route path= '/' element={<Home/>}/>
+        <Route path='/planner' element={<Planner/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/order' element={<PlaceOrder/>}/>
         <Route path='/orders' element={<Orders/>}/>
